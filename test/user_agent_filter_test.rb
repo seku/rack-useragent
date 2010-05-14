@@ -19,6 +19,16 @@ class UserAgentFilterTest < Test::Unit::TestCase
     Object.send(:remove_const, "RAILS_ROOT") if defined?(RAILS_ROOT)
   end
   
+  def test_forced_by_cookie_on
+    filter = Rack::UserAgent::Filter.new(@app, [{:browser => "Internet Explorer", :version => "7.0"}], :force_with_cookie => "ie_rules")
+    env = {
+      "HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)",
+      "rack.cookies" => { "ie_rules" => true }
+    }
+    response = filter.call(env)
+    assert_equal @app_response, response
+  end
+  
   def test_user_agent_supported
     filter = Rack::UserAgent::Filter.new(@app, [{:browser => "Internet Explorer", :version => "7.0"}])
     env = {"HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)"}

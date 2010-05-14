@@ -6,14 +6,15 @@ require 'ostruct'
 module Rack::UserAgent
   class Filter
     def initialize(app, config = [], options = {})
-      @app = app
-      @browsers = config
-      @template = options[:template]
+      @app                = app
+      @browsers           = config
+      @template           = options[:template]
+      @force_with_cookie  = options[:force_with_cookie]
     end
 
     def call(env)
       browser = UserAgent.parse(env["HTTP_USER_AGENT"]) if env["HTTP_USER_AGENT"]
-      if unsupported?(browser)
+      if !detection_disabled_by_cookie?(env['rack.cookies']) && unsupported?(browser)
         content = page(env['rack.locale'], browser)
         [400, {"Content-Type" => "text/html", "Content-Length" => content.length.to_s}, content]
       else
@@ -25,6 +26,10 @@ module Rack::UserAgent
 
     def unsupported?(browser)
        browser && @browsers.any? { |hash| browser < OpenStruct.new(hash) }
+    end
+    
+    def detection_disabled_by_cookie?(cookies)
+      @force_with_cookie && cookies.keys.include?(@force_with_cookie)
     end
 
     def page(locale, browser)
