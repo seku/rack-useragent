@@ -48,13 +48,13 @@ Sure. You only have to take into account that you'll always have to set which te
 <em>- But... what if IE6 user do wants to see how page looks like in his favourite browser?</em>
 
 You can show button "I take full responsibility of using IE6. Let me in!". User clicks button and with some little help
-of Javascript cookie named i.e: "ie6_rules" is saved on user's disk.
-Next time user hits application, middleware checks request for inclusion of cookie "ie6_rules".
+of Javascript cookie named i.e: "deprecated_browser" is saved on user's disk.
+Next time user hits application, middleware checks request for inclusion of cookie "deprecated_browser".
 If it exists unsupported browsers detection is disabled for this user.
 
 config.middleware.use "Rack::UserAgent::Filter", [
   {:browser => "Internet Explorer", :version => "7.0"}
-], :force_with_cookie => "ie6_rules"
+], :force_with_cookie => "deprecated_browser"
   
 Enjoy it!
 
