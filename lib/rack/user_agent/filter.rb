@@ -29,6 +29,7 @@ module Rack::UserAgent
     end
 
     def detection_disabled_by_cookie?(cookies)
+      cookies = cookies || {}
       @force_with_cookie && cookies.keys.include?(@force_with_cookie)
     end
     

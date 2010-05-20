@@ -68,7 +68,7 @@ class UserAgentFilterTest < Test::Unit::TestCase
     filter = Rack::UserAgent::Filter.new(@app, [{:browser => "Internet Explorer", :version => "7.0"}])
     response = filter.call("HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)")
     assert_equal 400, response[STATUS]
-    assert_equal "This is upgrade.html", response[BODY]
+    assert response[BODY].include?("This is upgrade.html")
   end
 
   def test_localized_upgrade_html
