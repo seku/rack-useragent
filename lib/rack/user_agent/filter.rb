@@ -3,6 +3,7 @@ require 'user_agent'
 require 'erb'
 require 'ostruct'
 
+
 module Rack::UserAgent
   class Filter
     def initialize(app, config = [], options = {})
@@ -13,8 +14,9 @@ module Rack::UserAgent
     end
     
     def call(env)
+      request = Rack::Request.new(env)
       browser = UserAgent.parse(env["HTTP_USER_AGENT"]) if env["HTTP_USER_AGENT"]
-      if !detection_disabled_by_cookie?(env['rack.request.cookie_hash']) && unsupported?(browser)
+      if !detection_disabled_by_cookie?(request.cookies) && unsupported?(browser)
         content = page(env['rack.locale'], browser)
         [400, {"Content-Type" => "text/html", "Content-Length" => content.length.to_s}, content]
       else
@@ -29,7 +31,6 @@ module Rack::UserAgent
     end
 
     def detection_disabled_by_cookie?(cookies)
-      cookies = cookies || {}
       @force_with_cookie && cookies.keys.include?(@force_with_cookie)
     end
     

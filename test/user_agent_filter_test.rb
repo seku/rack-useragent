@@ -23,8 +23,8 @@ class UserAgentFilterTest < Test::Unit::TestCase
     filter = Rack::UserAgent::Filter.new(@app, [{:browser => "Internet Explorer", :version => "7.0"}], :force_with_cookie => "deprecated_browser")
     env = {
       "HTTP_USER_AGENT" => "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)",
-      "rack.request.cookie_hash" => { "deprecated_browser" => "Microsoft Internet Explorer" }
-    }
+      "HTTP_COOKIE" => "deprecated_browser=Microsoft Internet Explorer"
+      }
     response = filter.call(env)
     assert_equal @app_response, response
   end
