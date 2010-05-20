@@ -14,7 +14,7 @@ module Rack::UserAgent
     
     def call(env)
       browser = UserAgent.parse(env["HTTP_USER_AGENT"]) if env["HTTP_USER_AGENT"]
-      if !detection_disabled_by_cookie?(env['rack.cookies']) && unsupported?(browser)
+      if !detection_disabled_by_cookie?(env['rack.request.cookie_hash']) && unsupported?(browser)
         content = page(env['rack.locale'], browser)
         [400, {"Content-Type" => "text/html", "Content-Length" => content.length.to_s}, content]
       else
