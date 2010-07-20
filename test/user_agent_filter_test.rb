@@ -54,6 +54,24 @@ class UserAgentFilterTest < Test::Unit::TestCase
     
   end
   
+  context "custom page (haml)" do
+    setup do
+      def app
+        Rack::Builder.new do
+           use Rack::UserAgent::Filter, [{:browser => "Internet Explorer", :version => "7.0"}], :template => File.dirname(__FILE__) + "/fixtures/upgrade.haml"
+           run SampleApp.new
+         end
+      end
+    end
+    
+    should "work" do
+      header "User-Agent", @outdated_browser
+      get '/'
+      assert_equal "Hello, Internet Explorer 6.0!\n", last_response.body
+    end
+    
+  end
+  
   context "cookie" do
     
     setup do

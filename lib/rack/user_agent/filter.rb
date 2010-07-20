@@ -1,5 +1,6 @@
 require 'user_agent'
 require 'erb'
+require 'tilt'
 require 'ostruct'
 
 module Rack::UserAgent
@@ -35,7 +36,7 @@ module Rack::UserAgent
     def render_page(browser)
       if @template && File.exists?(@template)
         @browser = browser # for the template
-        ERB.new(File.read(@template)).result(binding)
+        Tilt.new(@template).render(self)
       else
         "Sorry, your browser is not supported. Please upgrade" 
       end

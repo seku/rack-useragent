@@ -23,6 +23,7 @@ begin
     gemspec.summary = "Rack Middleware for filtering by user agent"
     gemspec.add_dependency('rack', '>= 0.9.1')
     gemspec.add_dependency('useragent', '>=0.1.4')
+    gemspec.add_dependency('tilt', '>=1.0.0')
   end
 rescue LoadError
 end
