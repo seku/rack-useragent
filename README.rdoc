@@ -6,7 +6,7 @@ Rack Middleware for filtering by user agent
 
 Let's say you don't support IE6 and want to prevent IE6 users from accessing to your Rails app. You're in luck. Just add this to your <tt>config/environment.rb</tt>:
 
-  config.gem "bebanjo-rack-useragent", :lib => "rack/user_agent", :source => "http://gems.github.com"
+  config.gem "rack-useragent-filter", :lib => "rack/user_agent"
   
   config.middleware.use "Rack::UserAgent::Filter", [
     {:browser => "Internet Explorer", :version => "7.0"}
