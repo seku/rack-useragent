@@ -1,20 +1,20 @@
-= Rack::UserAgent
+= Rack::UserAgent::Filter
 
 Rack Middleware for filtering by user agent
 
 == Use
 
-Let's say you don't support IE6 and want to prevent IE6 users from accessing to your Rails app. You're in luck. Just add this to your <tt>config/environment.rb</tt>:
-
-  config.gem "rack-useragent-filter"
+Let's say you don't support IE6 and want to prevent IE6 users from accessing to your Rack app. You're in luck. Just add this to your Gemfile:
   
-  config.middleware.use "Rack::UserAgent::Filter", [
+  gem "rack-useragent-filter", :require => "rack/useragent/filter"
+
+  
+  in config.ru:
+  
+  use Rack::UserAgent::Filter, [
     ["Internet Explorer", "7.0"]
   ]
   
-And, of course, install the gem:
-
-  $ [sudo] rake gems:install
   
 Done! From now on users with IE version lower than 7.0 will get a nice error message saying that their browsers need to be updated... Ok, ok, not so nice message, you can personalize it by putting an <tt>upgrade.html</tt> file inside the <tt>/public</tt> directory of your application.
 
@@ -22,23 +22,15 @@ Done! From now on users with IE version lower than 7.0 will get a nice error mes
 
 Granted! You'll have to add to the config which template to use. In <tt>environment.rb</tt>:
 
-  config.middleware.use "Rack::UserAgent::Filter", [
+  use Rack::UserAgent::Filter, [
     ["Internet Explorer", "7.0"]
-  ], :template => "#{RAILS_ROOT}/app/views/shared/upgrade.html.erb"
+  ], :template => File.dirname(__FILE__) + "/app/views/shared/upgrade.html.erb"
   
 Then you could show the browser version as part of your message:
 
   Sorry but <%= "#{@browser.browser} #{@browser.version}" %> is not supported
   
-<em>- Can I use it with non-Rails Rack frameworks, like Sinatra?</em>
 
-Sure. You only have to take into account that you'll always have to set which template to use. i.e: In <tt>config.ru</tt>:
-
-  require 'rack/user_agent'
-  
-  use Rack::UserAgent::Filter, [
-    ["Internet Explorer", "7.0"]
-  ], :template => File.dirname(__FILE__) + "/public/upgrade.html"
   
   
 <em>- But... what if IE6 user do wants to see how page looks like in his favourite browser?</em>
@@ -51,18 +43,13 @@ If it exists unsupported browsers detection is disabled for this user.
 config.middleware.use "Rack::UserAgent::Filter", [
   ["Internet Explorer", "7.0"]
 ], :force_with_cookie => "deprecated_browser"
-  
-Enjoy it!
 
 == Authors
 
+* Tomasz Mazur <defkode@gmail.com>
 * Sergio Gil <sgilperez@gmail.com>
 * Luismi Cavallé <luismi@lmcavalle.com>
 
 == Contributors
 
 * Tomasz Mazur <defkode@gmail.com>
-
-We're looking forward for your patches. Fork us!
-
-Copyright (c) 2008 BeBanjo, released under the MIT license

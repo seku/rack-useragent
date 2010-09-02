@@ -1,3 +1,8 @@
+require 'user_agent'
+require 'erb'
+require 'tilt'
+require 'ostruct'
+
 module Rack
   module UserAgent
     class Filter

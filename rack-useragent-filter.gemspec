@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-useragent-filter}
-  s.version = "0.1.5"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomasz Mazur", "Sergio Gil", "Luismi Cavall\303\251"]
@@ -20,7 +20,9 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "examples/upgrade.html",
+     "lib/rack/useragent/filter.rb",
      "rack-useragent-filter.gemspec",
+     "rack-useragent-filter.rb",
      "test/fixtures/upgrade.erb",
      "test/fixtures/upgrade.haml",
      "test/test_helper.rb",
