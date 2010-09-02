@@ -5,28 +5,28 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-useragent-filter}
-  s.version = "0.1.4"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Sergio Gil", "Luismi Cavall\303\251"]
-  s.date = %q{2010-07-20}
-  s.email = %q{ballsbreaking@bebanjo.com}
+  s.authors = ["Tomasz Mazur", "Sergio Gil", "Luismi Cavall\303\251"]
+  s.date = %q{2010-09-02}
+  s.email = %q{defkode@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
   ]
   s.files = [
-    "README.rdoc",
+    ".gitignore",
+     "README.rdoc",
      "Rakefile",
      "VERSION",
      "examples/upgrade.html",
-     "lib/rack/user_agent.rb",
-     "lib/rack/user_agent/filter.rb",
+     "rack-useragent-filter.gemspec",
      "test/fixtures/upgrade.erb",
      "test/fixtures/upgrade.haml",
      "test/test_helper.rb",
      "test/user_agent_filter_test.rb"
   ]
-  s.homepage = %q{http://github.com/bebanjo/rack-useragent}
+  s.homepage = %q{http://github.com/defkode/rack-useragent}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
