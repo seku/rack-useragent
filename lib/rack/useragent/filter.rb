@@ -1,8 +1,3 @@
-require 'user_agent'
-require 'erb'
-require 'tilt'
-require 'ostruct'
-
 module Rack
   module UserAgent
     class Filter
@@ -28,7 +23,7 @@ module Rack
       private
 
       def unsupported?(useragent)
-        useragent && @browsers.detect { |browser| useragent < browser}
+        useragent && @browsers.detect { |browser| useragent < browser }
       end
 
       def detection_disabled_by_cookie?(cookies)
