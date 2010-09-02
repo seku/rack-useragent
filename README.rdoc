@@ -6,10 +6,10 @@ Rack Middleware for filtering by user agent
 
 Let's say you don't support IE6 and want to prevent IE6 users from accessing to your Rails app. You're in luck. Just add this to your <tt>config/environment.rb</tt>:
 
-  config.gem "rack-useragent-filter", :lib => "rack/user_agent"
+  config.gem "rack-useragent-filter"
   
   config.middleware.use "Rack::UserAgent::Filter", [
-    {:browser => "Internet Explorer", :version => "7.0"}
+    ["Internet Explorer", "7.0"]
   ]
   
 And, of course, install the gem:
@@ -23,7 +23,7 @@ Done! From now on users with IE version lower than 7.0 will get a nice error mes
 Granted! You'll have to add to the config which template to use. In <tt>environment.rb</tt>:
 
   config.middleware.use "Rack::UserAgent::Filter", [
-    {:browser => "Internet Explorer", :version => "7.0"}
+    ["Internet Explorer", "7.0"]
   ], :template => "#{RAILS_ROOT}/app/views/shared/upgrade.html.erb"
   
 Then you could show the browser version as part of your message:
@@ -37,7 +37,7 @@ Sure. You only have to take into account that you'll always have to set which te
   require 'rack/user_agent'
   
   use Rack::UserAgent::Filter, [
-    {:browser => "Internet Explorer", :version => "7.0"}
+    ["Internet Explorer", "7.0"]
   ], :template => File.dirname(__FILE__) + "/public/upgrade.html"
   
   
@@ -49,7 +49,7 @@ Next time user hits application, middleware checks request for inclusion of cook
 If it exists unsupported browsers detection is disabled for this user.
 
 config.middleware.use "Rack::UserAgent::Filter", [
-  {:browser => "Internet Explorer", :version => "7.0"}
+  ["Internet Explorer", "7.0"]
 ], :force_with_cookie => "deprecated_browser"
   
 Enjoy it!

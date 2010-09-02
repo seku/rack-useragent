@@ -17,7 +17,7 @@ class UserAgentFilterTest < Test::Unit::TestCase
     setup do
       def app
        Rack::Builder.new do
-          use Rack::UserAgent::Filter, [{:browser => "Internet Explorer", :version => "7.0"}]
+          use Rack::UserAgent::Filter, [["Internet Explorer", "7.0"]]
           run SampleApp.new
         end
       end
@@ -40,7 +40,7 @@ class UserAgentFilterTest < Test::Unit::TestCase
     setup do
       def app
         Rack::Builder.new do
-           use Rack::UserAgent::Filter, [{:browser => "Internet Explorer", :version => "7.0"}], :template => File.dirname(__FILE__) + "/fixtures/upgrade.erb"
+           use Rack::UserAgent::Filter, [["Internet Explorer", "7.0"]], :template => File.dirname(__FILE__) + "/fixtures/upgrade.erb"
            run SampleApp.new
          end
       end
@@ -58,7 +58,7 @@ class UserAgentFilterTest < Test::Unit::TestCase
     setup do
       def app
         Rack::Builder.new do
-           use Rack::UserAgent::Filter, [{:browser => "Internet Explorer", :version => "7.0"}], :template => File.dirname(__FILE__) + "/fixtures/upgrade.haml"
+           use Rack::UserAgent::Filter, [["Internet Explorer", "7.0"]], :template => File.dirname(__FILE__) + "/fixtures/upgrade.haml"
            run SampleApp.new
          end
       end
@@ -77,7 +77,7 @@ class UserAgentFilterTest < Test::Unit::TestCase
     setup do
       def app
         Rack::Builder.new do
-           use Rack::UserAgent::Filter, [{:browser => "Internet Explorer", :version => "7.0"}], :force_with_cookie => "browser"
+           use Rack::UserAgent::Filter, [["Internet Explorer", "7.0"]], :force_with_cookie => "browser"
            run SampleApp.new
          end
       end

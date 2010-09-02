@@ -2,7 +2,7 @@ require "rubygems"
 require "rack/test"
 require "shoulda"
 
-require File.dirname(__FILE__) + '/../lib/rack/user_agent'
+require File.dirname(__FILE__) + '/../lib/rack-useragent-filter'
 
 class SampleApp
   def call(env)

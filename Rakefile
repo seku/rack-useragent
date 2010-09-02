@@ -17,9 +17,9 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "rack-useragent-filter"
-    gemspec.authors = ["Sergio Gil", "Luismi Cavallé"]
-    gemspec.email = "ballsbreaking@bebanjo.com"
-    gemspec.homepage = "http://github.com/bebanjo/rack-useragent"
+    gemspec.authors = ["Tomasz Mazur", "Sergio Gil", "Luismi Cavallé"]
+    gemspec.email = "defkode@gmail.com"
+    gemspec.homepage = "http://github.com/defkode/rack-useragent"
     gemspec.summary = "Rack Middleware for filtering by user agent"
     gemspec.add_dependency('rack', '>= 0.9.1')
     gemspec.add_dependency('useragent', '>= 0.1.5')
