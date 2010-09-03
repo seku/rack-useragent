@@ -16,8 +16,8 @@ module Rack
 
       def call(env)
         request = Rack::Request.new(env)
-        useragent = ::UserAgent.parse(env["HTTP_USER_AGENT"])
-        if !detection_disabled_by_cookie?(request.cookies) && unsupported?(useragent)
+        useragent = ::UserAgent.parse(env["HTTP_USER_AGENT"].to_s)
+        if useragent.any? && !detection_disabled_by_cookie?(request.cookies) && unsupported?(useragent)
           content = render_page(useragent)
           [400, {"Content-Type" => "text/html", "Content-Length" => content.length.to_s}, content]
         else
