@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-useragent-filter}
-  s.version = "0.1.6"
+  s.version = "0.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomasz Mazur", "Sergio Gil", "Luismi Cavall\303\251"]
-  s.date = %q{2010-09-02}
+  s.date = %q{2010-09-03}
   s.email = %q{defkode@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
