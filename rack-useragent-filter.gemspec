@@ -22,7 +22,6 @@ Gem::Specification.new do |s|
      "examples/upgrade.html",
      "lib/rack/useragent/filter.rb",
      "rack-useragent-filter.gemspec",
-     "rack-useragent-filter.rb",
      "test/fixtures/upgrade.erb",
      "test/fixtures/upgrade.haml",
      "test/test_helper.rb",
