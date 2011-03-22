@@ -13,10 +13,23 @@ Let's say you don't support IE6 and want to prevent IE6 users from accessing to 
   
   use Rack::UserAgent::Filter, [
     ["Internet Explorer", "7.0"]
-  ]
+  ]  
   
-  
-Done! From now on users with IE version lower than 7.0 will get a nice error message saying that their browsers need to be updated... Ok, ok, not so nice message, you can personalize it by putting an <tt>upgrade.html</tt> file inside the <tt>/public</tt> directory of your application.
+Done! From now on users with IE version lower than 7.0 will get a nice error message saying that their browsers need to be updated... Ok, ok, not so nice message, you can personalize it by passing custom message, as shown below:
+
+  use Rack::UserAgent::Filter, [
+    ["Internet Explorer", "7.0"]
+  ], :custom_message => "You are using old browser..."
+
+<em> What about not just one sentence message ? </em>
+
+You can specify source url of template 
+
+  use Rack::UserAgent::Filter, [
+    ["Internet Explorer", "7.0"]
+  ], :template => "http://www.example.com/not_supported.html"
+
+<em> url should be valid http||https </em>
 
 <em>- Cool!, what about something more dynamic... like ERB or HAML?</em>
 
@@ -31,8 +44,6 @@ Then you could show the browser version as part of your message:
   Sorry but <%= "#{@browser.browser} #{@browser.version}" %> is not supported
   
 
-  
-  
 <em>- But... what if IE6 user do wants to see how page looks like in his favourite browser?</em>
 
 You can show button "I take full responsibility of using IE6. Let me in!". User clicks button and with some little help

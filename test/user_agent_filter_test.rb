@@ -71,6 +71,58 @@ class UserAgentFilterTest < Test::Unit::TestCase
     end
     
   end
+
+  context "custom message" do
+    setup do
+      def app
+        Rack::Builder.new do
+           use Rack::UserAgent::Filter, [["Internet Explorer", "7.0"]], :custom_message => "I'm custom"
+           run SampleApp.new
+         end
+      end
+    end
+    
+    should "not work" do
+      header "User-Agent", @outdated_browser
+      get '/'
+      assert_equal "I'm custom", last_response.body
+    end
+  end
+
+  context "custom page (url as a template)" do
+    setup do
+      def app
+        Rack::Builder.new do
+           use Rack::UserAgent::Filter, [["Internet Explorer", "7.0"]], :template => "http://www.example.com"
+           run SampleApp.new
+         end
+      end
+      stub_request(:any, "http://www.example.com").to_return(:body => "test", :status => 200)
+    end
+    
+    should "work" do
+      header "User-Agent", @outdated_browser
+      get '/'
+      assert_equal "test", last_response.body
+    end
+  end
+
+  context "custom page (with bad url)" do
+    setup do
+      def app
+        Rack::Builder.new do
+           use Rack::UserAgent::Filter, [["Internet Explorer", "7.0"]], :template => "ppp"
+           run SampleApp.new
+         end
+      end
+    end
+    
+    should "not work" do
+      header "User-Agent", @outdated_browser
+      get '/'
+      assert_equal "Sorry, your browser is not supported. Please upgrade", last_response.body
+    end
+  end  
   
   context "cookie" do
     

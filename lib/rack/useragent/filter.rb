@@ -2,6 +2,8 @@ require 'user_agent'
 require 'erb'
 require 'tilt'
 require 'ostruct'
+require 'net/http'
+require 'uri'
 
 module Rack
   module UserAgent
@@ -12,6 +14,7 @@ module Rack
         @browsers           = required_browsers.map{ |b| OpenStruct.new(:browser => b[0], :version => b[1]) }
         @template           = options[:template]
         @force_with_cookie  = options[:force_with_cookie]
+        @custom_message     = options[:custom_message]
       end
 
       def call(env)
@@ -31,16 +34,27 @@ module Rack
         useragent && @browsers.detect { |browser| useragent < browser }
       end
 
+      def template_is_url?
+        (@template =~ URI::regexp(%w(http https))).nil? ? false : true 
+      end
+      
       def detection_disabled_by_cookie?(cookies)
         @force_with_cookie && cookies.keys.include?(@force_with_cookie)
+      end
+
+      def render_default_message
+        @custom_message ? @custom_message : "Sorry, your browser is not supported. Please upgrade"  
       end
 
       def render_page(useragent)
         if @template && ::File.exists?(@template)
           @browser = useragent # for the template
           Tilt.new(@template).render(self)
+        elsif @template && template_is_url?
+          @browser = useragent
+          Net::HTTP.get(URI.parse(@template))
         else
-          "Sorry, your browser is not supported. Please upgrade"
+          render_default_message
         end
       end
     end
