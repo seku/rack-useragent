@@ -3,6 +3,7 @@ require 'erb'
 require 'tilt'
 require 'ostruct'
 require 'net/http'
+require 'httparty'
 require 'uri'
 
 module Rack
@@ -22,7 +23,7 @@ module Rack
         useragent = ::UserAgent.parse(env["HTTP_USER_AGENT"].to_s)
         if useragent.any? && !detection_disabled_by_cookie?(request.cookies) && unsupported?(useragent)
           content = render_page(useragent)
-          [200, {"Content-Type" => "text/html", "Content-Length" => content.length.to_s}, content]
+          [200, {"Content-Type" => "text/html", "Content-Length" => content.length.to_s}, [content]]
         else
           @app.call(env)
         end
