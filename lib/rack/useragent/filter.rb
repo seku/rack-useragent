@@ -19,6 +19,7 @@ module Rack
       end
 
       def call(env)
+        puts "****************************************"
         request = Rack::Request.new(env)
         useragent = ::UserAgent.parse(env["HTTP_USER_AGENT"].to_s)
         if useragent.any? && !detection_disabled_by_cookie?(request.cookies) && unsupported?(useragent)
